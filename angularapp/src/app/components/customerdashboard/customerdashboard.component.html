@@ -1,0 +1,62 @@
+<div class="container fade-in">
+  <div class="hero-card glass-card">
+    <h1 class="hero-title">E-Learning Platform</h1>
+    <p class="hero-text">
+      Welcome to our E-Learning Platform, where knowledge meets innovation to create transformative learning experiences. Discover a wide 
+      range of courses designed to help you achieve your academic, professional, and personal goals. From beginner-level lessons 
+      to advanced professional certifications, we’ve got something for everyone. Explore dynamic learning paths, interactive 
+      modules, and expert-led courses tailored to provide real-world skills that matter in today's fast-paced world. Empower 
+      yourself through personalized learning experiences and cutting-edge resources that allow you to learn at your own pace, from 
+      anywhere, at any time. Whether you’re looking to develop new skills or enhance your current knowledge, our E-Learning 
+      platform is the gateway to lifelong learning and success. Join us today and transform your learning journey into something 
+      truly impactful.
+    </p>
+  </div>
+
+  <div class="form-card glass-card">
+    <h3 class="card-heading">Fill Your Details</h3>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
+    </div>
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="submitDetails()">
+      <div class="form-group">
+        <label class="form-label">Name <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="name"
+          name="customerName" 
+          class="form-control" 
+          [(ngModel)]="customer.customerName" 
+          required 
+          placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What are you (Student / professional) <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="information"
+          name="information" 
+          class="form-control" 
+          [(ngModel)]="customer.information" 
+          required 
+          placeholder="e.g. Student or Professional">
+      </div>
+
+      <button 
+        type="submit" 
+        id="submitButton"
+        class="btn btn-success" 
+        [disabled]="!isFormValid() || isSubmitting">
+        <i class="fa-solid fa-check" *ngIf="!isSubmitting"></i>
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+        {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+      </button>
+    </form>
+  </div>
+</div>

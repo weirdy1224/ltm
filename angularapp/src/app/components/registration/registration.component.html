@@ -1,0 +1,137 @@
+<div class="container fade-in">
+  <div class="form-card glass-card">
+    <h2 class="form-title">Registration</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+    </div>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="register()" #regForm="ngForm">
+      <!-- Username -->
+      <div class="form-group">
+        <label class="form-label">Username <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          class="form-control" 
+          [(ngModel)]="user.username" 
+          #username="ngModel" 
+          required 
+          placeholder="Enter username">
+        <div class="invalid-feedback" *ngIf="username.invalid && (username.dirty || username.touched || regForm.submitted)">
+          Username is required
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label">Email <span class="required-star">*</span></label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-control" 
+          [(ngModel)]="user.email" 
+          #email="ngModel" 
+          required 
+          email 
+          placeholder="user@gmail.com">
+        <div class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched || regForm.submitted)">
+          Email is required
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label">Password <span class="required-star">*</span></label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-control" 
+          [(ngModel)]="user.password" 
+          #password="ngModel" 
+          required 
+          placeholder="Enter password">
+        <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched || regForm.submitted)">
+          Password is required
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label class="form-label">Confirm Password <span class="required-star">*</span></label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          name="confirmPassword" 
+          class="form-control" 
+          [(ngModel)]="user.confirmPassword" 
+          #confirmPassword="ngModel" 
+          required 
+          placeholder="Confirm password">
+        <div class="invalid-feedback" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || regForm.submitted)">
+          Confirm Password is required
+        </div>
+        <div class="invalid-feedback" *ngIf="isPasswordMismatch() && confirmPassword.valid">
+          password do not match
+        </div>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="form-group">
+        <label class="form-label">Mobile Number <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="mobileNumber" 
+          name="mobileNumber" 
+          class="form-control" 
+          [(ngModel)]="user.mobileNumber" 
+          #mobileNumber="ngModel" 
+          required 
+          placeholder="1234567890">
+        <div class="invalid-feedback" *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || regForm.submitted)">
+          Mobile Number is required
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="form-group">
+        <label class="form-label">Role <span class="required-star">*</span></label>
+        <select 
+          id="role" 
+          name="role" 
+          class="form-select" 
+          [(ngModel)]="user.role" 
+          #role="ngModel" 
+          required>
+          <option value="" disabled selected>-- Select Role --</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="CUSTOMER">CUSTOMER</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="role.invalid && (role.dirty || role.touched || regForm.submitted)">
+          Role is required
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        id="submitButton"
+        class="btn btn-gold w-100" 
+        [disabled]="!isFormValid() || isSubmitting">
+        <i class="fa-solid fa-user-plus" *ngIf="!isSubmitting"></i>
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+        {{ isSubmitting ? 'Registering...' : 'Register' }}
+      </button>
+
+      <div class="form-footer">
+        Already have an account? <a routerLink="/login" class="link-gold">Login here</a>
+      </div>
+    </form>
+  </div>
+</div>

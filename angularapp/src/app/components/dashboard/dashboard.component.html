@@ -1,0 +1,43 @@
+<div class="container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">Admin Dashboard</h1>
+    <p class="page-subtitle">Welcome back, Administrator. Overview of the E-Learning Platform.</p>
+  </div>
+
+  <div class="hero-info glass-card">
+    <h2>E-Learning Platform Overview</h2>
+    <p>
+      Welcome to our E-Learning Platform, where knowledge meets innovation to create transformative learning experiences. 
+      Manage courses, monitor student enrollments, inspect feedback ratings, and maintain application metrics efficiently.
+    </p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card glass-card">
+      <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
+      <div class="stat-info">
+        <h3>{{ totalCourses }}</h3>
+        <p>Total Active Courses</p>
+      </div>
+      <a routerLink="/view-courses" class="stat-link">Manage Courses <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon"><i class="fa-solid fa-receipt"></i></div>
+      <div class="stat-info">
+        <h3>{{ totalOrders }}</h3>
+        <p>Course Enrollments</p>
+      </div>
+      <a routerLink="/view-orders" class="stat-link">View Orders <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+      <div class="stat-info">
+        <h3>{{ totalReviews }}</h3>
+        <p>Submitted Reviews</p>
+      </div>
+      <a routerLink="/view-review" class="stat-link">View Reviews <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</div>

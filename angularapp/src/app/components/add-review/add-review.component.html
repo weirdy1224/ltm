@@ -1,0 +1,80 @@
+<div class="container fade-in">
+  <div class="form-card glass-card">
+    <h2 class="form-title">Add Review Details</h2>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
+    </div>
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="submitReview()">
+      <!-- Customer ID -->
+      <div class="form-group">
+        <label class="form-label">CustomerId:</label>
+        <input 
+          type="text" 
+          id="customerId"
+          name="customerId" 
+          class="form-control" 
+          [(ngModel)]="review.customerId" 
+          readonly>
+      </div>
+
+      <!-- Course Type -->
+      <div class="form-group">
+        <label class="form-label">Course Type: <span class="required-star">*</span></label>
+        <select 
+          id="courseType"
+          name="subject" 
+          class="form-select" 
+          [(ngModel)]="review.subject" 
+          required>
+          <option value="" disabled selected>Select Course Type</option>
+          <option *ngFor="let course of courses" [value]="course.courseType">{{ course.courseType }}</option>
+          <option value="learning basics">learning basics</option>
+          <option value="Online">Online</option>
+          <option value="python">python</option>
+        </select>
+      </div>
+
+      <!-- Feedback Comments -->
+      <div class="form-group">
+        <label class="form-label">Feedback comments: <span class="required-star">*</span></label>
+        <textarea 
+          id="feedbackComments"
+          name="body" 
+          rows="4" 
+          class="form-control" 
+          [(ngModel)]="review.body" 
+          required 
+          placeholder="Enter your feedback comments"></textarea>
+      </div>
+
+      <!-- Rating Stars -->
+      <div class="form-group">
+        <label class="form-label">Rating: <span class="required-star">*</span></label>
+        <div class="star-rating">
+          <i 
+            *ngFor="let star of stars" 
+            class="fa-star star-icon" 
+            [class.fa-solid]="star <= review.rating" 
+            [class.fa-regular]="star > review.rating"
+            (click)="setRating(star)">
+          </i>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        id="submitButton"
+        class="btn btn-gold w-100" 
+        [disabled]="!isFormValid() || isSubmitting">
+        <i class="fa-solid fa-paper-plane" *ngIf="!isSubmitting"></i>
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+        {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container fade-in">
+  <div class="form-card glass-card">
+    <h2 class="form-title">Login</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="fa-solid fa-triangle-exclamation"></i> {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label">Email <span class="required-star">*</span></label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-control" 
+          [(ngModel)]="loginData.email" 
+          #email="ngModel" 
+          required 
+          email 
+          placeholder="Enter your email">
+        <div class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched || loginForm.submitted)">
+          Email is required
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label">Password <span class="required-star">*</span></label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-control" 
+          [(ngModel)]="loginData.password" 
+          #password="ngModel" 
+          required 
+          placeholder="Enter your password">
+        <div class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched || loginForm.submitted)">
+          Password is required
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        id="loginButton"
+        class="btn btn-gold w-100" 
+        [disabled]="!isFormValid() || isSubmitting">
+        <i class="fa-solid fa-right-to-bracket" *ngIf="!isSubmitting"></i>
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+        {{ isSubmitting ? 'Logging in...' : 'Login' }}
+      </button>
+
+      <div class="form-footer">
+        Don't have an account? <a routerLink="/registration" class="link-gold">Register here</a>
+      </div>
+    </form>
+  </div>
+</div>

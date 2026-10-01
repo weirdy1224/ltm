@@ -1,0 +1,26 @@
+.form-card {
+  max-width: 520px;
+  margin: 2rem auto;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.form-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f59e0b;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button-group button {
+  flex: 1;
+}

@@ -1,0 +1,51 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="nav-brand">
+      <i class="fa-solid fa-graduation-cap brand-icon"></i>
+      <span class="brand-title">Online E-Learning Platform</span>
+    </a>
+
+    <!-- Public Nav Links (Not Logged In) -->
+    <div class="nav-links" *ngIf="!isLoggedIn">
+      <a routerLink="/registration" routerLinkActive="active" class="nav-item">Register</a>
+      <a routerLink="/login" routerLinkActive="active" class="nav-item">Login</a>
+    </div>
+
+    <!-- Admin Nav Links -->
+    <div class="nav-links" *ngIf="isLoggedIn && isAdmin">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">Home</a>
+      <a routerLink="/view-courses" routerLinkActive="active" class="nav-item">View Courses</a>
+      <a routerLink="/add-course" routerLinkActive="active" class="nav-item">Add Course</a>
+      <a routerLink="/view-orders" routerLinkActive="active" class="nav-item">View Enrollments</a>
+      <a routerLink="/view-review" routerLinkActive="active" class="nav-item">View Reviews</a>
+      <button (click)="confirmLogout()" class="nav-item btn-logout">Logout</button>
+    </div>
+
+    <!-- Customer Nav Links -->
+    <div class="nav-links" *ngIf="isLoggedIn && isCustomer">
+      <a routerLink="/customerdashboard" routerLinkActive="active" class="nav-item">Home</a>
+      <a routerLink="/customer-view-courses" routerLinkActive="active" class="nav-item">Available Courses</a>
+      <a routerLink="/my-cart" routerLinkActive="active" class="nav-item">My Cart</a>
+      <a routerLink="/my-orders" routerLinkActive="active" class="nav-item">My Enrollments</a>
+      <a routerLink="/add-review" routerLinkActive="active" class="nav-item">Add Review</a>
+      <button (click)="confirmLogout()" class="nav-item btn-logout">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal-backdrop" *ngIf="showLogoutModal">
+  <div class="modal-card fade-in">
+    <div class="modal-header">
+      <i class="fa-solid fa-circle-question modal-icon"></i>
+      <h3>Confirm Logout</h3>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to logout?</p>
+    </div>
+    <div class="modal-actions">
+      <button (click)="logout()" class="btn btn-gold">Yes, Logout</button>
+      <button (click)="cancelLogout()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+</div>

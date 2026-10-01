@@ -1,0 +1,84 @@
+<div class="container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">{{ isAdmin ? 'All Enrolled Orders' : 'My Orders' }}</h1>
+    <p class="page-subtitle">{{ isAdmin ? 'Overview of all customer course enrollments.' : 'View your completed enrollments and purchased courses.' }}</p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading enrollments...
+  </div>
+
+  <div class="empty-state glass-card" *ngIf="!isLoading && orders.length === 0">
+    <i class="fa-solid fa-receipt empty-icon"></i>
+    <h3>No Orders Found</h3>
+    <p>{{ isAdmin ? 'No enrollments have been recorded yet.' : 'You have not enrolled in any courses yet.' }}</p>
+    <a routerLink="/customer-view-courses" class="btn btn-gold" *ngIf="!isAdmin">Explore Courses</a>
+  </div>
+
+  <!-- Customer View -->
+  <div *ngIf="!isLoading && !isAdmin && orders.length > 0">
+    <div class="order-card glass-card" *ngFor="let order of orders; let idx = index">
+      <div class="order-header">
+        <span class="order-id-badge">Order #{{ order.orderId || (idx + 1) }}</span>
+        <span class="order-total-badge">Total: {{ order.orderPrice | currency:'USD':'symbol':'1.0-2' }}</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Type</th>
+              <th>Details</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of order.courses">
+              <td>
+                <img [src]="course.courseImageUrl || 'https://via.placeholder.com/80'" [alt]="course.courseType" class="table-course-img">
+              </td>
+              <td><strong>{{ course.courseType }}</strong></td>
+              <td>{{ course.courseDetails }}</td>
+              <td class="text-gold">{{ course.coursePrice | currency:'USD':'symbol':'1.0-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="action-footer">
+      <button class="btn btn-gold" (click)="navigateToAddReview()">
+        <i class="fa-solid fa-star"></i> Add Review
+      </button>
+    </div>
+  </div>
+
+  <!-- Admin View -->
+  <div class="table-responsive glass-card" *ngIf="!isLoading && isAdmin && orders.length > 0">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>S.NO</th>
+          <th>CUSTOMER NAME</th>
+          <th>COURSE TYPE</th>
+          <th>ADDRESS / ROLE</th>
+          <th>QUANTITY</th>
+          <th>TOTAL PRICE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td><strong>{{ order.customer?.customerName || 'Customer' }}</strong></td>
+          <td>
+            <div *ngFor="let c of order.courses">{{ c.courseType }}</div>
+          </td>
+          <td>{{ order.customer?.information || 'Student' }}</td>
+          <td>{{ order.courses?.length || 1 }}</td>
+          <td class="text-gold">{{ order.orderPrice | currency:'USD':'symbol':'1.0-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

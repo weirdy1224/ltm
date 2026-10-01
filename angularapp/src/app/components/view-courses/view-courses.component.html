@@ -1,0 +1,52 @@
+<div class="container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">All Admin Courses</h1>
+    <p class="page-subtitle">Manage, update, and delete courses offered on the platform.</p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading courses...
+  </div>
+
+  <div class="empty-state glass-card" *ngIf="!isLoading && courses.length === 0">
+    <i class="fa-solid fa-folder-open empty-icon"></i>
+    <h3>No Courses Available</h3>
+    <p>Get started by adding your first course to the platform catalog.</p>
+    <a routerLink="/add-course" class="btn btn-gold"><i class="fa-solid fa-plus"></i> Add New Course</a>
+  </div>
+
+  <div class="courses-grid" *ngIf="!isLoading && courses.length > 0">
+    <div class="course-card glass-card" *ngFor="let course of courses">
+      <div class="card-header-badge">{{ course.courseType }}</div>
+      <div class="image-wrapper">
+        <img [src]="course.courseImageUrl || 'https://via.placeholder.com/300x180?text=Course+Image'" [alt]="course.courseType" class="course-image">
+      </div>
+      <div class="card-content">
+        <h3 class="course-type">{{ course.courseType }}</h3>
+        <p class="course-details">Details: {{ course.courseDetails }}</p>
+        <div class="course-price">Price: {{ course.coursePrice | currency:'USD':'symbol':'1.0-2' }}</div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" (click)="editCourse(course.courseId)">Edit</button>
+        <button class="btn btn-gold btn-sm" (click)="promptDelete(course)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warning Delete Confirmation Modal -->
+<div class="modal-backdrop" *ngIf="showDeleteModal">
+  <div class="modal-card fade-in">
+    <div class="modal-header">
+      <i class="fa-solid fa-triangle-exclamation modal-icon-warn"></i>
+      <h3>Confirm Deletion</h3>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete the course '{{ selectedCourseToDelete?.courseType }}'?</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gold" (click)="confirmDelete()">OK</button>
+      <button class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+    </div>
+  </div>
+</div>

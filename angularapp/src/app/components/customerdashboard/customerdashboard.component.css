@@ -1,0 +1,31 @@
+.hero-card {
+  margin-bottom: 2.5rem;
+  border-left: 4px solid #f59e0b;
+}
+
+.hero-title {
+  font-family: 'Outfit', sans-serif;
+  color: #f59e0b;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.hero-text {
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+.form-card {
+  max-width: 550px;
+  margin: 0 auto;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.card-heading {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}

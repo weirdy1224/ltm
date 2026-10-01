@@ -1,0 +1,10 @@
+.star-rating-display {
+  color: #f59e0b;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.btn-xs {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+}

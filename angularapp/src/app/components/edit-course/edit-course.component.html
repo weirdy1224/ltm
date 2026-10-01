@@ -1,0 +1,67 @@
+<div class="container fade-in">
+  <div class="form-card glass-card">
+    <h2 class="form-title">Edit Course</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="updateCourse()">
+      <!-- Course Type -->
+      <div class="form-group">
+        <label class="form-label">Course Type <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="courseType"
+          name="courseType" 
+          class="form-control" 
+          [(ngModel)]="course.courseType" 
+          required>
+      </div>
+
+      <!-- Course Image URL -->
+      <div class="form-group">
+        <label class="form-label">Course Image URL:</label>
+        <input 
+          type="text" 
+          id="courseImageUrl"
+          name="courseImageUrl" 
+          class="form-control" 
+          [(ngModel)]="course.courseImageUrl">
+      </div>
+
+      <!-- Course Details -->
+      <div class="form-group">
+        <label class="form-label">Course Details: <span class="required-star">*</span></label>
+        <textarea 
+          id="courseDetails"
+          name="courseDetails" 
+          rows="4" 
+          class="form-control" 
+          [(ngModel)]="course.courseDetails" 
+          required></textarea>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label class="form-label">Price: <span class="required-star">*</span></label>
+        <input 
+          type="number" 
+          id="coursePrice"
+          name="coursePrice" 
+          class="form-control" 
+          [(ngModel)]="course.coursePrice" 
+          required>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" id="updateCourseButton" class="btn btn-primary" [disabled]="isSubmitting">
+          Update Course
+        </button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container fade-in">
+  <div class="form-card glass-card">
+    <h2 class="form-title">Payment & Order Checkout</h2>
+
+    <form (ngSubmit)="makePayment()">
+      <div class="form-group">
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control" [value]="customerDetails.name" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Mobile Number:</label>
+        <input type="text" class="form-control" [value]="customerDetails.mobileNumber" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What are you (Student/Professional):</label>
+        <input type="text" class="form-control" [value]="customerDetails.information" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email ID:</label>
+        <input type="email" class="form-control" [value]="customerDetails.email" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Total Price:</label>
+        <input type="text" class="form-control price-box" [value]="totalPrice | currency:'USD':'symbol':'1.0-2'" readonly>
+      </div>
+
+      <button type="submit" id="makePaymentButton" class="btn btn-gold w-100" [disabled]="isProcessing || totalPrice <= 0">
+        <i class="fa-solid fa-lock" *ngIf="!isProcessing"></i>
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isProcessing"></i>
+        {{ isProcessing ? 'Processing Payment...' : 'Make Payment' }}
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Payment Success Modal -->
+<div class="modal-backdrop" *ngIf="showPaymentModal">
+  <div class="modal-card fade-in">
+    <div class="modal-header">
+      <i class="fa-solid fa-circle-check modal-icon-success"></i>
+      <h3>Payment Confirmation</h3>
+    </div>
+    <div class="modal-body">
+      <p>payment was successful!</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gold" (click)="confirmPaymentSuccess()">OK</button>
+    </div>
+  </div>
+</div>

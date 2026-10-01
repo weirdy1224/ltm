@@ -1,0 +1,52 @@
+<div class="container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">My Shopping Cart</h1>
+    <p class="page-subtitle">Review courses in your cart and proceed to checkout.</p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading cart...
+  </div>
+
+  <div class="empty-state glass-card" *ngIf="!isLoading && (!cart.courses || cart.courses.length === 0)">
+    <i class="fa-solid fa-cart-shopping empty-icon"></i>
+    <h3>Your Cart is Empty</h3>
+    <p>Explore available courses and start learning today!</p>
+    <a routerLink="/customer-view-courses" class="btn btn-gold">Browse Courses</a>
+  </div>
+
+  <div class="cart-container" *ngIf="!isLoading && cart.courses && cart.courses.length > 0">
+    <div class="cart-items-grid">
+      <div class="cart-item glass-card" *ngFor="let course of cart.courses">
+        <div class="item-img-wrapper">
+          <img [src]="course.courseImageUrl || 'https://via.placeholder.com/150'" [alt]="course.courseType">
+        </div>
+        <div class="item-info">
+          <h3>{{ course.courseType }}</h3>
+          <p class="item-details">{{ course.courseDetails }}</p>
+          <div class="item-price">Price: {{ course.coursePrice | currency:'USD':'symbol':'1.0-2' }}</div>
+        </div>
+        <div class="item-action">
+          <button class="btn btn-danger btn-sm" (click)="removeFromCart(course.courseId)">
+            <i class="fa-solid fa-trash"></i> Remove from Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary glass-card">
+      <h3>Order Summary</h3>
+      <div class="summary-row">
+        <span>Total Courses:</span>
+        <span>{{ cart.courses.length }}</span>
+      </div>
+      <div class="summary-row total-row">
+        <span>Total Price:</span>
+        <span class="total-price">{{ cart.totalAmount | currency:'USD':'symbol':'1.0-2' }}</span>
+      </div>
+      <button class="btn btn-gold btn-checkout w-100" (click)="enrollNow()">
+        <i class="fa-solid fa-credit-card"></i> Enroll Now
+      </button>
+    </div>
+  </div>
+</div>

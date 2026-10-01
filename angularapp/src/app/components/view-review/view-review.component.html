@@ -1,0 +1,56 @@
+<div class="container fade-in">
+  <div class="page-header">
+    <h1 class="page-title">View Reviews</h1>
+    <p class="page-subtitle">Feedback and ratings submitted by learners across courses.</p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading reviews...
+  </div>
+
+  <div class="empty-state glass-card" *ngIf="!isLoading && reviews.length === 0">
+    <i class="fa-solid fa-comments empty-icon"></i>
+    <h3>No Reviews Available</h3>
+    <p>Be the first customer to add a course review!</p>
+    <a routerLink="/add-review" class="btn btn-gold" *ngIf="!isAdmin">Add Review</a>
+  </div>
+
+  <div class="table-responsive glass-card" *ngIf="!isLoading && reviews.length > 0">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>S.NO</th>
+          <th>CUSTOMER NAME</th>
+          <th>COURSE TITLE</th>
+          <th>FEEDBACK COMMENTS</th>
+          <th>RATING</th>
+          <th>DATE CREATED</th>
+          <th *ngIf="isAdmin">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rev of reviews; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td><strong>{{ rev.customer?.customerName || 'demo123' }}</strong></td>
+          <td>{{ rev.subject || 'Course' }}</td>
+          <td>{{ rev.body }}</td>
+          <td>
+            <div class="star-rating-display">
+              <i *ngFor="let star of [1,2,3,4,5]" 
+                 class="fa-star" 
+                 [class.fa-solid]="star <= (rev.rating || 0)" 
+                 [class.fa-regular]="star > (rev.rating || 0)">
+              </i>
+            </div>
+          </td>
+          <td>{{ rev.dateCreated | date:'MM/dd/yyyy' }}</td>
+          <td *ngIf="isAdmin">
+            <button class="btn btn-danger btn-xs" (click)="deleteReview(rev.reviewId)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

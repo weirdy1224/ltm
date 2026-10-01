@@ -1,0 +1,104 @@
+<div class="container fade-in">
+  <div class="form-card glass-card">
+    <h2 class="form-title">Add New Course</h2>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
+    </div>
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="addCourse()" #courseForm="ngForm">
+      <!-- Course Type -->
+      <div class="form-group">
+        <label class="form-label">Course Type <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="courseType"
+          name="courseType" 
+          class="form-control" 
+          [(ngModel)]="course.courseType" 
+          #courseType="ngModel" 
+          required 
+          placeholder="e.g. Online, Java, Python, C++">
+        <div class="invalid-feedback" *ngIf="courseType.invalid && (courseType.dirty || courseType.touched || courseForm.submitted)">
+          Course Type is required
+        </div>
+      </div>
+
+      <!-- Course Image URL -->
+      <div class="form-group">
+        <label class="form-label">Course Image URL <span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="courseImageUrl"
+          name="courseImageUrl" 
+          class="form-control" 
+          [(ngModel)]="course.courseImageUrl" 
+          #courseImageUrl="ngModel" 
+          required 
+          placeholder="https://example.com/image.jpg">
+        <div class="invalid-feedback" *ngIf="courseImageUrl.invalid && (courseImageUrl.dirty || courseImageUrl.touched || courseForm.submitted)">
+          Course Image URL is required
+        </div>
+      </div>
+
+      <!-- Course Details -->
+      <div class="form-group">
+        <label class="form-label">Course Details <span class="required-star">*</span></label>
+        <textarea 
+          id="courseDetails"
+          name="courseDetails" 
+          rows="4" 
+          class="form-control" 
+          [(ngModel)]="course.courseDetails" 
+          #courseDetails="ngModel" 
+          required 
+          placeholder="Enter detailed description of the course"></textarea>
+        <div class="invalid-feedback" *ngIf="courseDetails.invalid && (courseDetails.dirty || courseDetails.touched || courseForm.submitted)">
+          Course Details are required
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label class="form-label">Price <span class="required-star">*</span></label>
+        <div class="price-input-group">
+          <button type="button" class="btn btn-secondary stepper-btn" (click)="decreasePrice()">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <input 
+            type="number" 
+            id="coursePrice"
+            name="coursePrice" 
+            class="form-control price-control" 
+            [(ngModel)]="course.coursePrice" 
+            #coursePrice="ngModel" 
+            required 
+            min="1">
+          <button type="button" class="btn btn-secondary stepper-btn" (click)="increasePrice()">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+        <div class="invalid-feedback" *ngIf="(coursePrice.invalid || course.coursePrice <= 0) && (coursePrice.dirty || coursePrice.touched || courseForm.submitted)">
+          Price is required and must be greater than 0
+        </div>
+      </div>
+
+      <div class="warning-text" *ngIf="!isFormValid() && courseForm.submitted">
+        *All fields are required
+      </div>
+
+      <button 
+        type="submit" 
+        id="addCourseButton"
+        class="btn btn-gold w-100" 
+        [disabled]="!isFormValid() || isSubmitting">
+        <i class="fa-solid fa-plus-circle" *ngIf="!isSubmitting"></i>
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+        {{ isSubmitting ? 'Adding...' : 'Add Course' }}
+      </button>
+    </form>
+  </div>
+</div>

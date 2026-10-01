@@ -1,0 +1,125 @@
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card:hover {
+  border-color: #f59e0b;
+  transform: translateY(-4px);
+}
+
+.card-header-badge {
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: #f59e0b;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-transform: lowercase;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: #0f172a;
+}
+
+.course-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.course-type {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.course-details {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  min-height: 42px;
+}
+
+.course-price {
+  font-weight: 700;
+  color: #f59e0b;
+  font-size: 1.1rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-sm {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.loading-spinner, .empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #94a3b8;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #f59e0b;
+  margin-bottom: 1rem;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 2000;
+}
+
+.modal-card {
+  background: #1e293b;
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%; max-width: 420px;
+  text-align: center;
+}
+
+.modal-icon-warn {
+  font-size: 3rem;
+  color: #ef4444;
+  margin-bottom: 0.75rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
