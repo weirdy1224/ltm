@@ -26,14 +26,8 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<?> registerCustomer(@RequestBody Customer customer) {
         logger.info("REST request to register customer: {}", customer.getCustomerName());
-        try {
-            Customer savedCustomer = customerService.registerCustomer(customer);
-            return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
-        } catch (Exception e) {
-            logger.error("Error creating customer: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        Customer savedCustomer = customerService.registerCustomer(customer);
+        return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
     }
 
     @GetMapping("/{customerId}")
@@ -67,12 +61,7 @@ public class CustomerController {
     @PutMapping("/{customerId}")
     public ResponseEntity<?> updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer) {
         logger.info("REST request to update customer ID: {}", customerId);
-        try {
-            Customer updated = customerService.updateCustomer(customerId, customer);
-            return ResponseEntity.ok(updated);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        Customer updated = customerService.updateCustomer(customerId, customer);
+        return ResponseEntity.ok(updated);
     }
 }

@@ -26,26 +26,15 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<?> addReview(@RequestBody Review review) {
         logger.info("REST request to add new review");
-        try {
-            Review created = reviewService.addReview(review);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            logger.error("Error creating review: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        Review created = reviewService.addReview(review);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<?> getAllReviews() {
         logger.info("REST request to get all reviews");
-        try {
-            List<Review> reviews = reviewService.getAllReviews();
-            return ResponseEntity.ok(reviews);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", "Unable to retrieve reviews"));
-        }
+        List<Review> reviews = reviewService.getAllReviews();
+        return ResponseEntity.ok(reviews);
     }
 
     @GetMapping("/{reviewId}")

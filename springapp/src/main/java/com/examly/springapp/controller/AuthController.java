@@ -25,26 +25,14 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         logger.info("REST request to register user: {}", user.getEmail());
-        try {
-            User registeredUser = userService.registerUser(user);
-            return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
-        } catch (Exception e) {
-            logger.error("Error registering user: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        User registeredUser = userService.registerUser(user);
+        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO) {
         logger.info("REST request to login user: {}", loginDTO.getEmail());
-        try {
-            Map<String, Object> authData = userService.loginUser(loginDTO);
-            return ResponseEntity.ok(authData);
-        } catch (Exception e) {
-            logger.error("Error logging in user: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("message", "Unauthorized: Invalid credentials"));
-        }
+        Map<String, Object> authData = userService.loginUser(loginDTO);
+        return ResponseEntity.ok(authData);
     }
 }

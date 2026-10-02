@@ -26,14 +26,8 @@ public class CourseController {
     @PostMapping
     public ResponseEntity<?> addCourse(@RequestBody Course course) {
         logger.info("REST request to add new course: {}", course.getCourseType());
-        try {
-            Course savedCourse = courseService.addCourse(course);
-            return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
-        } catch (Exception e) {
-            logger.error("Error adding course: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        Course savedCourse = courseService.addCourse(course);
+        return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -62,14 +56,8 @@ public class CourseController {
     @PutMapping("/{courseId}")
     public ResponseEntity<?> updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
         logger.info("REST request to update course ID: {}", courseId);
-        try {
-            Course course = courseService.updateCourse(courseId, updatedCourse);
-            return ResponseEntity.ok(course);
-        } catch (Exception e) {
-            logger.error("Error updating course: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        Course course = courseService.updateCourse(courseId, updatedCourse);
+        return ResponseEntity.ok(course);
     }
 
     @DeleteMapping("/{courseId}")

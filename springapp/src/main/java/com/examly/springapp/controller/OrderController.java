@@ -26,26 +26,15 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody Orders order) {
         logger.info("REST request to create new order");
-        try {
-            Orders created = orderService.addOrder(order);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            logger.error("Error creating order: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", e.getMessage()));
-        }
+        Orders created = orderService.addOrder(order);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<?> getAllOrders() {
         logger.info("REST request to get all orders");
-        try {
-            List<Orders> orders = orderService.viewAllOrders();
-            return ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", "Unable to retrieve orders"));
-        }
+        List<Orders> orders = orderService.viewAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{orderId}")
